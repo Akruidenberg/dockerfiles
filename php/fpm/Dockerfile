@@ -1,4 +1,4 @@
-FROM alpine:3.12
+FROM alpine:3.13
 
 ARG VERSION
 
@@ -20,6 +20,7 @@ ENV MEMORY_LIMIT=256M \
 # Let's roll
 RUN set -xe && \
     apk add --no-cache \
+        composer \
         php7-bcmath \
         php7-bz2 \
         php7-curl \
@@ -50,6 +51,7 @@ RUN set -xe && \
         php7-soap \
         php7-sodium \
         php7-sqlite3 \
+        php7-tokenizer \
         php7-xmlreader \
         php7-xmlrpc \
         php7-zip \

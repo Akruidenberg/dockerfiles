@@ -1,13 +1,13 @@
-name: samba-server
+name: xray
 
 on:
   push:
     branches: [ master ]
     paths:
-      - '.github/workflows/samba-server.yml'
-      - '!samba-server/**'
+      - '.github/workflows/xray.yml'
+      - '!xray/**'
   repository_dispatch:
-    types: samba-server-build
+    types: xray-build
 
 jobs:
   build:
@@ -19,8 +19,8 @@ jobs:
         id: prepare
         run: |
           VERSION=${{ github.event.client_payload.version }}
-          [[ ! -n $VERSION ]] && VERSION=4.13.3
-          IMAGE_NAME=samba-server
+          [[ ! -n $VERSION ]] && VERSION=1.3.0
+          IMAGE_NAME=xray
           TAGS="gists/${IMAGE_NAME}:${VERSION},gists/${IMAGE_NAME}:latest"
           echo ::set-output name=build_args::VERSION=${VERSION}
           echo ::set-output name=image-name::${IMAGE_NAME}

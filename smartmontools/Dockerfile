@@ -1,10 +1,10 @@
-FROM alpine:3.12
+FROM alpine:3.13
 
 ARG VERSION
 
 # Let's roll
 RUN set -xe && \
     apk add --no-cache \
-    smartmontools ssmtp
+    smartmontools ssmtp mailx
 
 ENTRYPOINT ["/usr/sbin/smartd", "--debug"]

@@ -1,4 +1,4 @@
-FROM alpine:3.12
+FROM alpine:3.13
 
 ARG VERSION
 
@@ -26,10 +26,10 @@ RUN set -ex && \
         c-ares-dev && \
     mkdir -p /tmp/ss && \
     cd /tmp/ss && \
-    curl -sSL https://github.com/shadowsocks/shadowsocks-libev/releases/download/v$VERSION/shadowsocks-libev-$VERSION.tar.gz | \
+    curl -sSL https://github.com/shadowsocks/shadowsocks-libev/releases/latest/download/shadowsocks-libev-$VERSION.tar.gz | \
     tar xz --strip 1 && \
     ./configure --prefix=/usr --disable-documentation && \
-    make install && \
+    make -j $((`nproc`+1)) install && \
     ls /usr/bin/ss-* | xargs -n1 setcap 'cap_net_bind_service+ep' && \
     runDeps="$( \
         scanelf --needed --nobanner /usr/bin/ss-* \
